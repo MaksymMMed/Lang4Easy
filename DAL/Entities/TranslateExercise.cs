@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace DAL.Entities
 {
-    public class VoiceExercise:Exercise
+    public class TranslateExercise:Exercise
     {
-        
+        public List<string>? TextBloks { get; set; }
     }
 }

@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace DAL.Entities
 {
-    public class TextExercise:Exercise
+    public class GrammarExercise:Exercise
     {
-        public List<string>? TextBloks { get; set; }
+        public string? Question { get; set; }
+        public List<string>? Variables { get; set; }
     }
 }
