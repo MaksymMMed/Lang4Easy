@@ -8,6 +8,8 @@ namespace DAL.Entities
 {
     public class TranslateExercise:Exercise
     {
-        public List<string>? TextBloks { get; set; }
+        public string? Question { get; set; }
+        public bool UseBlocks { get; set; }
+        public List<string>? TextBlocks { get; set; }
     }
 }

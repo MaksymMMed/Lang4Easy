@@ -7,10 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Repo\Interfaces\" />
-    <Folder Include="Repo\Realizations\" />
     <Folder Include="Configuration\" />
     <Folder Include="Seeding\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.4" />
   </ItemGroup>
 
 </Project>

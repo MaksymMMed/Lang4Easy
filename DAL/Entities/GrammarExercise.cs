@@ -10,5 +10,6 @@ namespace DAL.Entities
     {
         public string? Question { get; set; }
         public List<string>? Variables { get; set; }
+        public bool UseVariables { get; set; }
     }
 }

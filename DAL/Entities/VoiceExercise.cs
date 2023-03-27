@@ -8,6 +8,6 @@ namespace DAL.Entities
 {
     public class VoiceExercise:Exercise
     {
-        
+        public string? TextToSay { get; set; } 
     }
 }

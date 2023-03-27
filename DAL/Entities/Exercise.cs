@@ -13,7 +13,6 @@ namespace DAL.Entities
         public string? Answer { get; set; }
         public int LessonId { get; set; }
         public Lesson? Lesson { get; set; }
-        
-
+        public bool IsComplete { get; set; }
     }
 }
