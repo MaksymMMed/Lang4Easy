@@ -10,8 +10,8 @@ namespace DAL.Repo.Realizations
 {
     public abstract class GenericRepository<T> : IRepository<T> where T : class
     {
-        private readonly Context context;
-        private readonly DbSet<T> table;
+        protected readonly Context context;
+        protected readonly DbSet<T> table;
 
         protected GenericRepository(Context context, DbSet<T> table)
         {
