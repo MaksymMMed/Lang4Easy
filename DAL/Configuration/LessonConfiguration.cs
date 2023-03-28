@@ -1,4 +1,5 @@
 ﻿using DAL.Entities;
+using DAL.Seeding;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -29,6 +30,8 @@ namespace DAL.Configuration
             builder
                 .HasMany(x => x.Exercises)
                 .WithOne(x => x.Lesson);
+
+            new LessonSeeding().Seeding(builder);
         }
     }
 }

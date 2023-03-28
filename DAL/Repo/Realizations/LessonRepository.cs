@@ -17,8 +17,7 @@ namespace DAL.Repo.Realizations
 
         public override async Task<Lesson> GetById(int id)
         {
-            var item = await table.Where(x=>x.Id == id).Include(x=>x.GrammarExercises).Include(x=>x.TranslateExercises)
-                .Include(x=>x.VoiceExercises).FirstAsync();
+            var item = await table.Where(x=>x.Id == id).Include(x=>x.Exercises).FirstAsync();
             return item;
         }
     }

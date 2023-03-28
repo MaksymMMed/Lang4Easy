@@ -1,4 +1,5 @@
-﻿using DAL.Entities;
+﻿using DAL.Configuration;
+using DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -16,8 +17,16 @@ namespace DAL
 
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Lesson> Lesson { get; set; }
-        public virtual DbSet<GrammarExercise> GrammarExercise { get; set; }
-        public virtual DbSet<TranslateExercise> TranslateExercise { get; set; }
-        public virtual DbSet<VoiceExercise> VoiceExercise { get; set; }
+        public virtual DbSet<Exercise> Exercise { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new LessonConfiguration());
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new ExerciseConfiguration());
+            modelBuilder.ApplyConfiguration(new VoiceExerciseConfiguration());
+            modelBuilder.ApplyConfiguration(new GrammarExerciseConfiguration());
+            modelBuilder.ApplyConfiguration(new TranslateExerciseConfiguration());
+        }
     }
 }
