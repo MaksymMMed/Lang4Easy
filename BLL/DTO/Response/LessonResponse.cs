@@ -12,8 +12,6 @@ namespace BLL.DTO.Response
         public int Id { get; set; }
         public string? LessonName { get; set; }
         public string? LessonDescription { get; set; }
-        public List<GrammarExercise>? GrammarExercises { get; set; }
-        public List<TranslateExercise>? TranslateExercises { get; set; }
-        public List<VoiceExercise>? VoiceExercises { get; set; }
+        public List<Exercise>? Exercises { get; set; }
     }
 }

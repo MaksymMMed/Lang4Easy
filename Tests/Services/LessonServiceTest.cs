@@ -34,19 +34,15 @@ namespace Tests.Services
                 Id = 1,
                 LessonDescription = "none",
                 LessonName = "none",
-                GrammarExercises = new List<GrammarExercise>(),
-                VoiceExercises = new List<VoiceExercise>(),
-                TranslateExercises = new List<TranslateExercise>()
-            });
+                Exercises = new List<Exercise>()
+            }) ;
 
             LessonResponse expectedResponse = new LessonResponse()
             {
                 Id = 1,
                 LessonDescription = "none",
                 LessonName = "none",
-                GrammarExercises = new List<GrammarExercise>(),
-                VoiceExercises = new List<VoiceExercise>(),
-                TranslateExercises = new List<TranslateExercise>()
+                Exercises = new List<Exercise>()
             };
 
             var Service = new LessonService(Repo, Mapper);
