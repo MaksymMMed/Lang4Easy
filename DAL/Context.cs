@@ -14,10 +14,10 @@ namespace DAL
         {
         }
 
-        public DbSet<User> User { get; set; }
-        public DbSet<Lesson> Lesson { get; set; }
-        public DbSet<GrammarExercise> GrammarExercise { get; set; }
-        public DbSet<TranslateExercise> TranslateExercise { get; set; }
-        public DbSet<VoiceExercise> VoiceExercise { get; set; }
+        public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<Lesson> Lesson { get; set; }
+        public virtual DbSet<GrammarExercise> GrammarExercise { get; set; }
+        public virtual DbSet<TranslateExercise> TranslateExercise { get; set; }
+        public virtual DbSet<VoiceExercise> VoiceExercise { get; set; }
     }
 }

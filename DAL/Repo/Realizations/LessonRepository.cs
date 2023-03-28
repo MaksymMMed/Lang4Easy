@@ -11,13 +11,14 @@ namespace DAL.Repo.Realizations
 {
     public class LessonRepository : GenericRepository<Lesson>, ILessonRepository
     {
-        public LessonRepository(Context context, DbSet<Lesson> table) : base(context, table)
+        public LessonRepository(Context context) : base(context)
         {
         }
 
         public override async Task<Lesson> GetById(int id)
         {
-            var item = await table.Where(x=>x.Id == id).Include(x=>x.Exercises).FirstAsync();
+            var item = await table.Where(x=>x.Id == id).Include(x=>x.GrammarExercises).Include(x=>x.TranslateExercises)
+                .Include(x=>x.VoiceExercises).FirstAsync();
             return item;
         }
     }

@@ -13,33 +13,33 @@ namespace DAL.Repo.Realizations
         protected readonly Context context;
         protected readonly DbSet<T> table;
 
-        protected GenericRepository(Context context, DbSet<T> table)
+        protected GenericRepository(Context context)
         {
             this.context = context;
-            this.table = context.Set<T>();
+            table = this.context.Set<T>();
         }
 
-        public async Task Delete(int id)
+        public virtual async Task Delete(int id)
         {
             var item = await table.FindAsync(id);
             table.Remove(item);
             await context.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<T>> GetAll()
+        public virtual Task<IEnumerable<T>> GetAll()
         {
             throw new NotImplementedException();
         }
 
         public abstract Task<T> GetById(int id);
 
-        public async Task Insert(T entity)
+        public virtual async Task Insert(T entity)
         {
             await table.AddAsync(entity);
             await context.SaveChangesAsync();
         }
 
-        public async Task Update(T entity)
+        public virtual async Task Update(T entity)
         {
             table.Update(entity);
             await context.SaveChangesAsync();
