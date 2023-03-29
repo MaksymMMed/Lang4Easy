@@ -28,6 +28,7 @@ namespace DAL.Repo.Realizations
             if (entity == null)
             {
                 await table.AddAsync(user);
+                await context.SaveChangesAsync();
             }
             else
             {
