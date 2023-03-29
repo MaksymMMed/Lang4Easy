@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using BLL.DTO.Request;
 using BLL.DTO.Response;
 using BLL.Services.Interfaces;
+using DAL.Entities;
 using DAL.Repo.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -21,10 +23,27 @@ namespace BLL.Services.Realizations
             this.mapper = mapper;
         }
 
-        public async Task<LessonResponse> getLessonById(int id)
+        public async Task AddLesson(LessonRequest request)
+        {
+            var item = mapper.Map<Lesson>(request);
+            await repository.Insert(item);
+        }
+
+        public async Task DeleteLesson(int id)
+        {
+            await repository.Delete(id);
+        }
+
+        public async Task<LessonResponse> GetLessonById(int id)
         {
             var item = await repository.GetById(id);
             return mapper.Map<LessonResponse>(item);
+        }
+
+        public async Task UpdateLesson(LessonRequest request)
+        {
+            var item = mapper.Map<Lesson>(request);
+            await repository.Update(item);
         }
     }
 }
