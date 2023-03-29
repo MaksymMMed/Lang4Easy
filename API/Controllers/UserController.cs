@@ -8,11 +8,11 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserConteroller : ControllerBase
+    public class UserController : ControllerBase
     {
         private readonly IUserService service;
 
-        public UserConteroller(IUserService service)
+        public UserController(IUserService service)
         {
             this.service = service;
         }
@@ -40,12 +40,12 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Authorize]
-        public async Task<ActionResult> DeleteUserById(int id)
+        public async Task<ActionResult> GetUserById(int id)
         {
             try
             {
-                await service.GetUserById(id);
-                return Ok();
+                var item = await service.GetUserById(id);
+                return Ok(item);
             }
             catch (Exception ex)
             {

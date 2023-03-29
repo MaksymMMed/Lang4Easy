@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Repo.Interfaces
 {
-    public interface IUsesRepository:IRepository<User>
+    public interface IUserRepository:IRepository<User>
     {
         Task<User> GetUser(string login,string password);
     }

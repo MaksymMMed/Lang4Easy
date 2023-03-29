@@ -20,7 +20,7 @@ namespace BLL.MapperConfig
         void UserProfile()
         {
             CreateMap<User, UserResponse>();
-            CreateMap<UserRequest, UserResponse>();
+            CreateMap<UserRequest, User>();
         }
         public MapperProfile()
         {

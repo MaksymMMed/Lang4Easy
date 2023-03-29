@@ -1,3 +1,5 @@
+using BLL.Services.Interfaces;
+using BLL.Services.Realizations;
 using DAL;
 using DAL.Repo.Interfaces;
 using DAL.Repo.Realizations;
@@ -18,11 +20,17 @@ builder.Services.AddControllers().AddJsonOptions(x =>
 builder.Services.AddDbContext<Context>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("ToDoContext")));
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+//Services
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//Transient fields
 builder.Services.AddTransient<ILessonRepository, LessonRepository>();
+builder.Services.AddTransient<IUserRepository, UserRepository>();
+
+builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<ILessonService, LessonService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
