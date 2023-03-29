@@ -1,4 +1,5 @@
 ﻿using DAL.Entities;
+using DAL.Seeding;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -15,8 +16,10 @@ namespace DAL.Configuration
         {
             builder
                 .Property(x => x.TextToSay)
-                .HasMaxLength(150)
+                .HasMaxLength(100)
                 .IsRequired();
+
+            new VoiceSeeding().Seeding(builder);
         }
     }
 }

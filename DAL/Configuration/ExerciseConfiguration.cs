@@ -41,7 +41,6 @@ namespace DAL.Configuration
                 .HasOne(x => x.Lesson)
                 .WithMany(x => x.Exercises);
 
-            new ExerciseSeeding().Seeding(builder);
         }
     }
 }
