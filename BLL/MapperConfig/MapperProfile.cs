@@ -17,9 +17,15 @@ namespace BLL.MapperConfig
             CreateMap<Lesson, LessonResponse>();
             CreateMap<LessonRequest, Lesson>();
         }
+        void UserProfile()
+        {
+            CreateMap<User, UserResponse>();
+            CreateMap<UserRequest, UserResponse>();
+        }
         public MapperProfile()
         {
             LessonProfile();
+            UserProfile();
         }
     }
 }

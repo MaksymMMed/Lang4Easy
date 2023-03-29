@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Repo.Realizations
 {
-    public class UserRepository : GenericRepository<User>, IUsesRepository
+    public class UserRepository : GenericRepository<User>, IUserRepository
     {
         public UserRepository(Context context) : base(context)
         {
