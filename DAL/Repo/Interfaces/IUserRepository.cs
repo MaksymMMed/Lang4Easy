@@ -9,6 +9,6 @@ namespace DAL.Repo.Interfaces
 {
     public interface IUserRepository:IRepository<User>
     {
-        Task<User> GetUser(string login,string password);
+        Task<User> GetUser(string email,string password);
     }
 }

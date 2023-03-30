@@ -38,8 +38,15 @@ namespace DAL.Repo.Realizations
 
         public async Task<User> GetUser(string email, string password)
         {
-            var user = await table.Where(x => x.Email == email.Trim() && x.Password == password.Trim()).FirstOrDefaultAsync();
-            return user ?? throw new ArgumentException("Wrong email or password");
+            var user = await table.Where(x => x.Email.Trim() == email.Trim() && x.Password.Trim() == password.Trim()).FirstOrDefaultAsync();
+            if (user == null)
+            {
+                throw new ArgumentException("Wrong email or password");
+            }
+            else
+            {
+                return user;
+            }
         }
     }
 }
