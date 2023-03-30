@@ -10,5 +10,6 @@ namespace BLL.Services.Interfaces
     {
         void SetToken(string token);
         string GetToken();
+        void DeleteToken();
     }
 }

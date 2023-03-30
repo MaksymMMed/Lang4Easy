@@ -1,5 +1,6 @@
 ﻿using BLL.DTO.Request;
 using BLL.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -59,6 +60,24 @@ namespace API.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, new { ex.Message });
             }
+        }
+
+        [HttpPost("Logout")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize]
+        public async Task<IActionResult> Logout()
+        {
+            try
+            {
+                tokenService.DeleteToken();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { ex.Message });
+            }
+            
         }
 
         [HttpPost("SignIn", Name = "SignIn")]

@@ -20,5 +20,10 @@ namespace BLL.Services.Realizations
         {
             return _token;
         }
+
+        public void DeleteToken()
+        {
+            _token = "";
+        }
     }
 }
