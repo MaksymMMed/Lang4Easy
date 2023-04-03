@@ -15,11 +15,13 @@ namespace BLL.Services.Realizations
     public class GrammarExerciseService : IGrammarExerciseService
     {
         private readonly IGrammarExerciseRepository repository;
+        private readonly ICompleteStatusRepository statusRepository;
         private readonly IMapper mapper;
 
-        public GrammarExerciseService(IGrammarExerciseRepository repository, IMapper mapper)
+        public GrammarExerciseService(IGrammarExerciseRepository repository, ICompleteStatusRepository statusRepository, IMapper mapper)
         {
             this.repository = repository;
+            this.statusRepository = statusRepository;
             this.mapper = mapper;
         }
 
@@ -29,24 +31,31 @@ namespace BLL.Services.Realizations
             await repository.Insert(item);
         }
 
-        public Task CheckTranslate(GrammarExerciseRequest request)
+        public async Task CheckTranslate(GrammarExerciseRequest request, string translatedText,int userId)
         {
-            throw new NotImplementedException();
+            if (request.Answer == translatedText.Trim())
+            {
+                var item = await statusRepository.GetComplete(userId, request.Id);
+                item.Status = true;
+                await statusRepository.Update(item);
+            }
         }
 
-        public Task DeleteGrammarExercise(int id)
+        public async Task DeleteGrammarExercise(int id)
         {
-            throw new NotImplementedException();
+            await repository.Delete(id);
         }
 
-        public Task<GrammarExerciseResponse> GetGrammarExerciseById(int id)
+        public async Task<GrammarExerciseResponse> GetGrammarExerciseById(int id)
         {
-            throw new NotImplementedException();
+            var item = await repository.GetById(id);
+            return mapper.Map<GrammarExerciseResponse>(item);
         }
 
-        public Task UpdateGrammarExercise(GrammarExerciseRequest request)
+        public async Task UpdateGrammarExercise(GrammarExerciseRequest request)
         {
-            throw new NotImplementedException();
+            var item = mapper.Map<GrammarExercise>(request);
+            await repository.Update(item);
         }
     }
 }

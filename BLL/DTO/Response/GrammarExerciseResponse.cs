@@ -14,7 +14,6 @@ namespace BLL.DTO.Response
         public string? Answer { get; set; }
         public int LessonId { get; set; }
         public Lesson? Lesson { get; set; }
-        public bool IsComplete { get; set; }
         public string? Question { get; set; }
         public List<string>? Variables { get; set; }
     }
