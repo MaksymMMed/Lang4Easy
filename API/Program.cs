@@ -34,9 +34,12 @@ builder.Services.AddSwaggerGen();
 //Transient fields for repos and services
 builder.Services.AddTransient<ILessonRepository, LessonRepository>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddTransient<IGrammarExerciseRepository, GrammarExerciseRepository>();
+builder.Services.AddTransient<ICompleteStatusRepository, CompleteStatusRepository>();
 
 builder.Services.AddTransient<ILessonService, LessonService>();
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IGrammarExerciseService, GrammarExerciseService>();
 
 //Singletone for token service
 builder.Services.AddSingleton<ITokenService,TokenService>();

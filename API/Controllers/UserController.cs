@@ -66,7 +66,7 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Authorize]
-        public async Task<IActionResult> Logout()
+        public ActionResult Logout()
         {
             try
             {

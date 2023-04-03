@@ -13,7 +13,6 @@ namespace BLL.DTO.Request
         public string? Name { get; set; }
         public string? Answer { get; set; }
         public int LessonId { get; set; }
-        public bool IsComplete { get; set; }
         public string? Question { get; set; }
         public List<string>? Variables { get; set; }
     }
