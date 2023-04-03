@@ -20,7 +20,6 @@ namespace DAL.Seeding
                 Name = "Translate sentence",
                 TextToSay = "You ate yesterday",
                 Answer = "Ти їв учора?",
-                IsComplete = false
             },
             new VoiceExercise()
             {
@@ -29,7 +28,6 @@ namespace DAL.Seeding
                 Name = "Translate sentence",
                 Answer = "You ate yesterday",
                 TextToSay = "Ти їв учора?",
-                IsComplete = false
             },
         };
 

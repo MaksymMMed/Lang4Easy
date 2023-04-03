@@ -18,6 +18,7 @@ namespace DAL
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Lesson> Lesson { get; set; }
         public virtual DbSet<Exercise> Exercise { get; set; }
+        public virtual DbSet<CompleteStatus> CompleteStatus { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -27,6 +28,7 @@ namespace DAL
             modelBuilder.ApplyConfiguration(new VoiceExerciseConfiguration());
             modelBuilder.ApplyConfiguration(new GrammarExerciseConfiguration());
             modelBuilder.ApplyConfiguration(new TranslateExerciseConfiguration());
+            modelBuilder.ApplyConfiguration(new CompleteStatusConfiguration());
         }
     }
 }

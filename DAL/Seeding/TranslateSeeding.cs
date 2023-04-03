@@ -22,7 +22,6 @@ namespace DAL.Seeding
                 Answer = "You ate yesterday?",
                 UseBlocks = true,
                 TextBlocks = new(){"You","ate","yesterday?"},
-                IsComplete = false
 
             },
             new TranslateExercise()
@@ -34,7 +33,6 @@ namespace DAL.Seeding
                 Answer = "Ти їв учора?",
                 UseBlocks = false,
                 TextBlocks = new(){},
-                IsComplete = false
             }
         };
 

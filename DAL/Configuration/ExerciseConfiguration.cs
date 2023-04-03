@@ -29,10 +29,6 @@ namespace DAL.Configuration
                 .IsRequired();
 
             builder
-                .Property(x=>x.IsComplete) 
-                .IsRequired();
-
-            builder
                 .Property(x => x.Answer)
                 .HasMaxLength(100)
                 .IsRequired();

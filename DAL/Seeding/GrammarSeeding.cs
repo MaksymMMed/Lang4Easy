@@ -20,7 +20,6 @@ namespace DAL.Seeding
                 Question = "_ done your homework?",
                 Answer = "Have",
                 Variables = new(){"Have","Has","Had"},
-                IsComplete = false,
                 Name = "Choose right verb"
             },
             new GrammarExercise()
@@ -30,7 +29,6 @@ namespace DAL.Seeding
                 Question = "Last month I _ to Scotland on holiday.",
                 Answer = "Went",
                 Variables = new(){"Go","Went"},
-                IsComplete = false,
                 Name = "Choose right verb"
             },
         };
