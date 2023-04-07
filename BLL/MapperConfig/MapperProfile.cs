@@ -22,10 +22,22 @@ namespace BLL.MapperConfig
             CreateMap<User, UserResponse>();
             CreateMap<UserRequest, User>();
         }
+        void GrammarProfile()
+        {
+            CreateMap<GrammarExercise, GrammarExerciseResponse>();
+            CreateMap<GrammarExerciseRequest, GrammarExercise>();
+        }
+        void VoiceProfile()
+        {
+            CreateMap<VoiceExercise,VoiceExerciseResponse>();
+            CreateMap<VoiceExerciseRequest,VoiceExercise>();
+        }
         public MapperProfile()
         {
             LessonProfile();
             UserProfile();
+            GrammarProfile();
+            VoiceProfile();
         }
     }
 }

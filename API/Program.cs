@@ -1,4 +1,5 @@
 using API.Middleware;
+using BLL.DTO.Response;
 using BLL.Services.Interfaces;
 using BLL.Services.Realizations;
 using DAL;
@@ -35,11 +36,13 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<ILessonRepository, LessonRepository>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IGrammarExerciseRepository, GrammarExerciseRepository>();
+builder.Services.AddTransient<IVoiceExerciseRepository, VoiceExerciseRepository>();
 builder.Services.AddTransient<ICompleteStatusRepository, CompleteStatusRepository>();
 
 builder.Services.AddTransient<ILessonService, LessonService>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IGrammarExerciseService, GrammarExerciseService>();
+builder.Services.AddTransient<IVoiceExerciseService, VoiceExerciseService>();
 
 //Singletone for token service
 builder.Services.AddSingleton<ITokenService,TokenService>();
