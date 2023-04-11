@@ -1,4 +1,5 @@
-﻿using BLL.DTO.Request;
+﻿using API.Security;
+using BLL.DTO.Request;
 using BLL.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -77,18 +78,17 @@ namespace API.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, new { ex.Message });
             }
-            
         }
 
         [HttpPost("SignIn", Name = "SignIn")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> SignIn(string email, string password)
+        public async Task<ActionResult> SignIn([FromBody] UserData data)
         {
-            if (password != null && email != null)
+            if (data.password != null && data.email != null)
             {
-                var userData = await service.GetUser(email, password);
+                var userData = await service.GetUser(data.email, data.password);
                 var jwt = configuration.GetSection("Jwt").Get<Jwt>();
                 if (userData != null)
                 {
@@ -108,7 +108,7 @@ namespace API.Controllers
                         expires: DateTime.Now.AddMinutes(30), signingCredentials: signIn);
 
                     tokenService.SetToken(new JwtSecurityTokenHandler().WriteToken(token));
-                    return Ok(new JwtSecurityTokenHandler().WriteToken(token));
+                    return Ok();
                 }
                 else
                 {

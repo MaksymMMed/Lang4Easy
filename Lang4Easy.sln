@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{2B1608EB-86CB-43B3-80F2-347451FD7598}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{0D1AC69B-17BD-4DF7-B921-D3D574C6567E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BLL", "BLL\BLL.csproj", "{0D1AC69B-17BD-4DF7-B921-D3D574C6567E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

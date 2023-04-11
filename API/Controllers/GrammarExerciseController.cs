@@ -39,12 +39,14 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [Authorize]
-        public async Task<ActionResult> GetGrammarExerciseById(int id)
+        //[Authorize]
+        //public async Task<ActionResult> GetGrammarExerciseById(int id)
+        public async Task<ActionResult> GetGrammarExerciseById()
         {
             try
             {
-                var item = await service.GetGrammarExerciseById(id);
+                var item = await service.GetGrammarExerciseById(1);
+                //var item = await service.GetGrammarExerciseById(id);
                 return Ok(item);
             }
             catch (Exception ex)

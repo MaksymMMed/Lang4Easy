@@ -53,7 +53,7 @@ namespace BLL.Services.Realizations
 
         public Task CheckText(VoiceExerciseRequest request)
         {
-            SpeechRecognizer recognizer = new SpeechRecognizer();
+            /*SpeechRecognizer recognizer = new SpeechRecognizer();
             Choices colors = new Choices(new string[] { "red", "blue", "green" });
             GrammarBuilder gb = new GrammarBuilder(colors);
             Grammar grammar = new Grammar(gb);
@@ -66,6 +66,9 @@ namespace BLL.Services.Realizations
             recognizer.(RecognizeMode.Multiple);
 
             // Обробник події розпізнавання мовлення
+
+            */
+            return Task.CompletedTask;
               
         }
         private static void recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)

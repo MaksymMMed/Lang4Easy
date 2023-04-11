@@ -32,6 +32,9 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//Cors
+builder.Services.AddCors();
+
 //Transient fields for repos and services
 builder.Services.AddTransient<ILessonRepository, LessonRepository>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
@@ -72,9 +75,13 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseMiddleware<TokenMiddleware>();
-
+app.UseCors(builder => builder
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
+
