@@ -36,7 +36,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("ExerciseId");
 
-                    b.ToTable("CompleteStatus");
+                    b.ToTable("CompleteStatus", (string)null);
 
                     b.HasData(
                         new
@@ -142,7 +142,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("LessonId");
 
-                    b.ToTable("Exercise");
+                    b.ToTable("Exercise", (string)null);
 
                     b.HasDiscriminator<string>("ExerciseType").HasValue("Exercise");
 
@@ -169,7 +169,7 @@ namespace DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Lesson");
+                    b.ToTable("Lesson", (string)null);
 
                     b.HasData(
                         new
@@ -214,7 +214,7 @@ namespace DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("User", (string)null);
 
                     b.HasData(
                         new
@@ -289,7 +289,7 @@ namespace DAL.Migrations
                     b.Property<bool>("UseBlocks")
                         .HasColumnType("bit");
 
-                    b.ToTable("Exercise", t =>
+                    b.ToTable("Exercise", null, t =>
                         {
                             t.Property("Question")
                                 .HasColumnName("TranslateExercise_Question");

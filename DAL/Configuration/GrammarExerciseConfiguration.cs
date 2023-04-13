@@ -16,6 +16,12 @@ namespace DAL.Configuration
     {
         public void Configure(EntityTypeBuilder<GrammarExercise> builder)
         {
+
+            builder
+                .HasOne(x => x.Lesson)
+                .WithMany(x => x.GrammarExercises);
+
+
             builder
                 .Property(x => x.Question)
                 .HasMaxLength(100)

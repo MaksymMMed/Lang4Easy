@@ -28,7 +28,15 @@ namespace DAL.Configuration
                 .IsRequired();
 
             builder
-                .HasMany(x => x.Exercises)
+                .HasMany(x => x.VoiceExercises)
+                .WithOne(x => x.Lesson);
+
+            builder
+                .HasMany(x => x.GrammarExercises)
+                .WithOne(x => x.Lesson);
+
+            builder
+                .HasMany(x => x.VoiceExercises)
                 .WithOne(x => x.Lesson);
 
             new LessonSeeding().Seeding(builder);

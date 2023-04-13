@@ -15,6 +15,10 @@ namespace DAL.Configuration
         public void Configure(EntityTypeBuilder<VoiceExercise> builder)
         {
             builder
+                .HasOne(x => x.Lesson)
+                .WithMany(x => x.VoiceExercises);
+
+            builder
                 .Property(x => x.TextToSay)
                 .HasMaxLength(100)
                 .IsRequired();

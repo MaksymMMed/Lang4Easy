@@ -38,7 +38,6 @@ namespace Tests.Services
                 Id = 1,
                 LessonDescription = "none",
                 LessonName = "none",
-                Exercises = new List<Exercise>()
             });
 
             LessonResponse expectedResponse = new LessonResponse()
@@ -46,7 +45,6 @@ namespace Tests.Services
                 Id = 1,
                 LessonDescription = "none",
                 LessonName = "none",
-                Exercises = new List<Exercise>()
             };
 
             var Service = new LessonService(Repo, Mapper);
@@ -65,8 +63,7 @@ namespace Tests.Services
             {
                 Id = 1,
                 LessonName = "lesson1",
-                LessonDescription = "none",
-                Exercises = null
+                LessonDescription = "none"
             };
             LessonRequest fakeDTO = new()
             {
@@ -94,7 +91,6 @@ namespace Tests.Services
                 Id = 1,
                 LessonName = "lesson1",
                 LessonDescription = "none",
-                Exercises = null
             };
             LessonRequest fakeDTO = new()
             {

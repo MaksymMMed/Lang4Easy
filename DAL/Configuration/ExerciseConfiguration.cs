@@ -33,10 +33,6 @@ namespace DAL.Configuration
                 .HasMaxLength(100)
                 .IsRequired();
 
-            builder
-                .HasOne(x => x.Lesson)
-                .WithMany(x => x.Exercises);
-
         }
     }
 }

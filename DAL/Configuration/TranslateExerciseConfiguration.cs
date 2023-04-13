@@ -22,6 +22,10 @@ namespace DAL.Configuration
                 .IsRequired();
 
             builder
+                .HasOne(x => x.Lesson)
+                .WithMany(x => x.TranslateExercises);
+
+            builder
                 .Property(x => x.UseBlocks)
                 .IsRequired();
 

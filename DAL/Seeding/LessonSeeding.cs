@@ -17,14 +17,12 @@ namespace DAL.Seeding
                 Id = 1,
                 LessonName = "lesson1",
                 LessonDescription = "it is first lesson",
-                Exercises = new List<Exercise>()
             },
             new Lesson()
             {
                 Id = 2,
                 LessonName = "lesson2",
                 LessonDescription = "it is second lesson",
-                Exercises = new List<Exercise>()
             }
 
         };

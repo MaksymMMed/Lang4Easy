@@ -40,6 +40,12 @@ namespace BLL.Services.Realizations
             return mapper.Map<LessonResponse>(item);
         }
 
+        public async Task<IEnumerable<LessonResponse>> GetLessons()
+        {
+            var items = await repository.GetAll();
+            return mapper.Map<IEnumerable<Lesson>,IEnumerable<LessonResponse>>(items); 
+        }
+
         public async Task UpdateLesson(LessonRequest request)
         {
             var item = mapper.Map<Lesson>(request);
