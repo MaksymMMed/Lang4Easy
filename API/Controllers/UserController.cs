@@ -89,6 +89,7 @@ namespace API.Controllers
             if (data.password != null && data.email != null)
             {
                 var userData = await service.GetUser(data.email, data.password);
+                
                 var jwt = configuration.GetSection("Jwt").Get<Jwt>();
                 if (userData != null)
                 {
@@ -126,7 +127,7 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> UpdateUser([FromQuery] UserRequest request)
+        public async Task<ActionResult> UpdateUser([FromBody] UserRequest request)
         {
             try
             {

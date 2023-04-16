@@ -5,6 +5,7 @@ using BLL.Services.Realizations;
 using DAL;
 using DAL.Repo.Interfaces;
 using DAL.Repo.Realizations;
+using DAL.UnitOfWork;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -40,12 +41,15 @@ builder.Services.AddTransient<ILessonRepository, LessonRepository>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IGrammarExerciseRepository, GrammarExerciseRepository>();
 builder.Services.AddTransient<IVoiceExerciseRepository, VoiceExerciseRepository>();
+builder.Services.AddTransient<ITranslateExerciseRepository, TranslateExerciseRepository>();
 builder.Services.AddTransient<ICompleteStatusRepository, CompleteStatusRepository>();
 
 builder.Services.AddTransient<ILessonService, LessonService>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IGrammarExerciseService, GrammarExerciseService>();
 builder.Services.AddTransient<IVoiceExerciseService, VoiceExerciseService>();
+
+builder.Services.AddTransient<IUnitOfWork,UnitOfWork>();
 
 //Singletone for token service
 builder.Services.AddSingleton<ITokenService,TokenService>();

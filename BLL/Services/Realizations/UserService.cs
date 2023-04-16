@@ -51,5 +51,10 @@ namespace BLL.Services.Realizations
             var item = mapper.Map<User>(request);
             await repository.Update(item);
         }
+
+        public async Task GetUserExercises(int id)
+        {
+
+        }
     }
 }

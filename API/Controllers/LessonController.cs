@@ -21,11 +21,30 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<LessonResponse>>> GetLessons()
         {
             try
             {
                 var items = await service.GetLessons();
+                return Ok(items);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { ex.Message });
+            }
+        }
+
+        [HttpGet("GetUserLessons")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        //[Authorize]
+        public async Task<ActionResult<IEnumerable<UserLessonResponse>>> GetUserLessons(int id)
+        {
+            try
+            {
+                var items = await service.GetUserLessons(id);
                 return Ok(items);
             }
             catch (Exception ex)

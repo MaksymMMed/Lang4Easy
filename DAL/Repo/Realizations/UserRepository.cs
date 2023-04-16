@@ -18,7 +18,7 @@ namespace DAL.Repo.Realizations
 
         public override async Task<User> GetById(int id)
         {
-                var user = await table.Where(x => x.Id == id).FirstOrDefaultAsync();
+                var user = await table.Where(x => x.Id == id).Include(x=>x.CompletedExercise).FirstOrDefaultAsync();
                 return user ?? throw new ArgumentException("User not found");
         }
 

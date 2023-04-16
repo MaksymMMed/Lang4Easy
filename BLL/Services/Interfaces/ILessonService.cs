@@ -15,6 +15,9 @@ namespace BLL.Services.Interfaces
         Task UpdateLesson(LessonRequest request);
         Task AddLesson(LessonRequest request);
         Task DeleteLesson(int id);
+
+        Task<IEnumerable<UserLessonResponse>> GetUserLessons(int UserId);
+
         Task<IEnumerable<LessonResponse>> GetLessons();
     }
 }
