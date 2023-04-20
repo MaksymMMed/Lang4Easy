@@ -45,6 +45,7 @@ builder.Services.AddTransient<ITranslateExerciseRepository, TranslateExerciseRep
 builder.Services.AddTransient<ICompleteStatusRepository, CompleteStatusRepository>();
 
 builder.Services.AddTransient<ILessonService, LessonService>();
+builder.Services.AddTransient<ITranslateExerciseService, TranslateExerciseService>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IGrammarExerciseService, GrammarExerciseService>();
 builder.Services.AddTransient<IVoiceExerciseService, VoiceExerciseService>();
@@ -79,6 +80,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseMiddleware<TokenMiddleware>();
+
+// Use cors to access from webclient
 app.UseCors(builder => builder
             .AllowAnyOrigin()
             .AllowAnyMethod()

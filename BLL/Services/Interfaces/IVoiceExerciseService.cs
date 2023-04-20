@@ -14,7 +14,8 @@ namespace BLL.Services.Interfaces
         Task UpdateVoiceExercise(VoiceExerciseRequest request);
         Task AddVoiceExercise(VoiceExerciseRequest request);
         Task DeleteVoiceExercise(int id);
-        Task SayText(VoiceExerciseRequest request);
-        Task CheckText(VoiceExerciseRequest request);
+        Task SayText(string textToSay);
+        Task<bool> CheckRecognizedText(CheckVoiceRequest checkVoice);
+
     }
 }

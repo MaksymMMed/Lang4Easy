@@ -19,12 +19,32 @@ namespace API.Controllers
         [HttpPost("SayText")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> CheckTranslate([FromQuery] VoiceExerciseRequest request)
+        [Authorize]
+        public async Task<ActionResult> SayText([FromBody] string textToSay)
         {
             try
             {
-                await service.SayText(request);
+                await service.SayText(textToSay);
                 return Ok();
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { ex.Message });
+            }
+        }
+
+        [HttpPost("CheckVoice")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize]
+        public async Task<ActionResult<bool>> CheckVoice([FromBody] CheckVoiceRequest checkVoice)
+        {
+            try
+            {
+                var result = await service.CheckRecognizedText(checkVoice);
+                return Ok(result);
 
             }
             catch (Exception ex)

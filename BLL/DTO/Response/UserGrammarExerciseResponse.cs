@@ -11,7 +11,6 @@ namespace BLL.DTO.Response
     {
         public int IdUser { get; set; }
         public int  IdExercise { get; set; }
-
         public User? User { get; set; }
         public GrammarExercise? GrammarExercise { get; set; }
         public bool Status { get; set; }

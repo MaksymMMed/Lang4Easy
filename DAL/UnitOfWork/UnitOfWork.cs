@@ -9,17 +9,20 @@ namespace DAL.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {
-        public UnitOfWork(IUserRepository userRepository,
+        public UnitOfWork(
+            IUserRepository userRepository,
             ILessonRepository lessonRepository,
             IVoiceExerciseRepository voiceExerciseRepository,
             IGrammarExerciseRepository grammarExerciseRepository,
-            ITranslateExerciseRepository translateExerciseRepository)
+            ITranslateExerciseRepository translateExerciseRepository,
+            ICompleteStatusRepository completeStatusRepository)
         {
-            UserRepository = userRepository;
-            LessonRepository = lessonRepository;
+            this.UserRepository = userRepository;
+            this.LessonRepository = lessonRepository;
             this.voiceExerciseRepository = voiceExerciseRepository;
             this.grammarExerciseRepository = grammarExerciseRepository;
             this.translateExerciseRepository = translateExerciseRepository;
+            this.completeStatusRepository = completeStatusRepository;
         }
 
         public IUserRepository UserRepository { get; }
@@ -32,5 +35,6 @@ namespace DAL.UnitOfWork
 
         public ITranslateExerciseRepository translateExerciseRepository { get; }
 
+        public ICompleteStatusRepository completeStatusRepository { get; }
     }
 }

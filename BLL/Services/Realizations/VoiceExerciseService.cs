@@ -4,6 +4,7 @@ using BLL.DTO.Response;
 using BLL.Services.Interfaces;
 using DAL.Entities;
 using DAL.Repo.Interfaces;
+using DAL.UnitOfWork;
 using System.Speech.Recognition;
 using System.Speech.Synthesis;
 
@@ -11,44 +12,44 @@ namespace BLL.Services.Realizations
 {
     public class VoiceExerciseService : IVoiceExerciseService
     {
-        private readonly IVoiceExerciseRepository repository;
+        private readonly IUnitOfWork unit;
         private readonly IMapper mapper;
 
-        public VoiceExerciseService(IVoiceExerciseRepository repository, IMapper mapper)
+        public VoiceExerciseService(IUnitOfWork unit, IMapper mapper)
         {
-            this.repository = repository;
+            this.unit = unit;
             this.mapper = mapper;
         }
 
         public async Task AddVoiceExercise(VoiceExerciseRequest request)
         {
             var item = mapper.Map<VoiceExercise>(request);
-            await repository.Insert(item);
+            await unit.voiceExerciseRepository.Insert(item);
         }
 
         public async Task DeleteVoiceExercise(int id)
         {
-            await repository.Delete(id);
+            await unit.voiceExerciseRepository.Delete(id);
         }
 
         public async Task<VoiceExerciseResponse> GetVoiceExerciseById(int id)
         {
-            var item = await repository.GetById(id);
+            var item = await unit.voiceExerciseRepository.GetById(id);
             return mapper.Map<VoiceExerciseResponse>(item);
         }
 
         public async Task UpdateVoiceExercise(VoiceExerciseRequest request)
         {
             var item = mapper.Map<VoiceExercise>(request);
-            await repository.Update(item);
+            await unit.voiceExerciseRepository.Update(item);
         }
 
-        public Task SayText(VoiceExerciseRequest request)
+        public async Task SayText(string textToSay)
         {
             SpeechSynthesizer synthesizer = new SpeechSynthesizer();
             synthesizer.SelectVoiceByHints(VoiceGender.Male, VoiceAge.Adult, 0, new System.Globalization.CultureInfo("en-US"));
-            synthesizer.SpeakAsync(request.TextToSay);
-            return Task.CompletedTask;
+            Prompt text = new Prompt(textToSay);
+            synthesizer.SpeakAsync(text);
         }
 
         public Task CheckText(VoiceExerciseRequest request)
@@ -71,11 +72,22 @@ namespace BLL.Services.Realizations
             return Task.CompletedTask;
               
         }
-        private static void recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
+
+        public async Task<bool> CheckRecognizedText(CheckVoiceRequest checkVoice)
         {
-            Console.WriteLine("Recognized: " + e.Result.Text);
+            var exercise = await unit.voiceExerciseRepository.GetById(checkVoice.exerciseId);
+
+            if (exercise.Answer == checkVoice.recognizedText.Trim())
+            {
+                var item = await unit.completeStatusRepository.GetComplete(checkVoice.userId, exercise.Id);
+                item.Status = true;
+                await unit.completeStatusRepository.Update(item);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
-
-
     }
 }

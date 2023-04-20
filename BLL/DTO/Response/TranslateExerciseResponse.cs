@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DAL.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,14 @@ namespace BLL.DTO.Response
 {
     public class TranslateExerciseResponse
     {
+        public int Id { get; set; }
+        public string? Name { get; set; }
+        public string? Answer { get; set; }
+        public int LessonId { get; set; }
+        public Lesson? Lesson { get; set; }
+        public List<CompleteStatus>? CompleteForUser { get; set; }
+        public string? Question { get; set; }
+        public bool UseBlocks { get; set; }
+        public List<string>? TextBlocks { get; set; }
     }
 }

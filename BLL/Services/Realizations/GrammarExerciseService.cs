@@ -4,6 +4,7 @@ using BLL.DTO.Response;
 using BLL.Services.Interfaces;
 using DAL.Entities;
 using DAL.Repo.Interfaces;
+using DAL.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,48 +15,53 @@ namespace BLL.Services.Realizations
 {
     public class GrammarExerciseService : IGrammarExerciseService
     {
-        private readonly IGrammarExerciseRepository repository;
-        private readonly ICompleteStatusRepository statusRepository;
+        private readonly IUnitOfWork unit;
         private readonly IMapper mapper;
 
-        public GrammarExerciseService(IGrammarExerciseRepository repository, ICompleteStatusRepository statusRepository, IMapper mapper)
+        public GrammarExerciseService(IUnitOfWork unit, IMapper mapper)
         {
-            this.repository = repository;
-            this.statusRepository = statusRepository;
+            this.unit = unit;
             this.mapper = mapper;
         }
 
         public async Task AddGrammarExercise(GrammarExerciseRequest request)
         {
             var item = mapper.Map<GrammarExercise>(request);
-            await repository.Insert(item);
+            await unit.grammarExerciseRepository.Insert(item);
         }
 
-        public async Task CheckTranslate(GrammarExerciseRequest request, string translatedText,int userId)
+        public async Task<bool> CheckGrammar(CheckGrammarRequest checkGrammar)
         {
-            if (request.Answer == translatedText.Trim())
+            var exercise = await unit.grammarExerciseRepository.GetById(checkGrammar.exerciseId);
+
+            if (exercise.Answer == checkGrammar.Verb.Trim())
             {
-                var item = await statusRepository.GetComplete(userId, request.Id);
+                var item = await unit.completeStatusRepository.GetComplete(checkGrammar.userId, exercise.Id);
                 item.Status = true;
-                await statusRepository.Update(item);
+                await unit.completeStatusRepository.Update(item);
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
         public async Task DeleteGrammarExercise(int id)
         {
-            await repository.Delete(id);
+            await unit.grammarExerciseRepository.Delete(id);
         }
 
         public async Task<GrammarExerciseResponse> GetGrammarExerciseById(int id)
         {
-            var item = await repository.GetById(id);
+            var item = await unit.grammarExerciseRepository.GetById(id);
             return mapper.Map<GrammarExerciseResponse>(item);
         }
 
         public async Task UpdateGrammarExercise(GrammarExerciseRequest request)
         {
             var item = mapper.Map<GrammarExercise>(request);
-            await repository.Update(item);
+            await unit.grammarExerciseRepository.Update(item);
         }
     }
 }

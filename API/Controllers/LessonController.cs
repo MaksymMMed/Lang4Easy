@@ -39,12 +39,13 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        //[Authorize]
-        public async Task<ActionResult<IEnumerable<UserLessonResponse>>> GetUserLessons(int id)
+        [Authorize]
+        public async Task<ActionResult<IEnumerable<UserLessonResponse>>> GetUserLessons(string id)
         {
             try
             {
-                var items = await service.GetUserLessons(id);
+                int _id = Int32.Parse(id);  
+                var items = await service.GetUserLessons(_id);
                 return Ok(items);
             }
             catch (Exception ex)

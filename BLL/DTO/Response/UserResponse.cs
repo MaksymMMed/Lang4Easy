@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DAL.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,5 +14,6 @@ namespace BLL.DTO.Response
         public string? Password { get; set; }
         public string? Email { get; set; }
         public bool IsEmailConfirmed { get; set; }
+        public List<CompleteStatus>? CompletedExercise { get; set; }
     }
 }

@@ -8,25 +8,25 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GrammarExerciseController:ControllerBase
+    public class TranslateExerciseController:ControllerBase
     {
-        private readonly IGrammarExerciseService service;
+        private readonly ITranslateExerciseService service;
 
-        public GrammarExerciseController(IGrammarExerciseService service)
+        public TranslateExerciseController(ITranslateExerciseService service)
         {
             this.service = service;
         }
 
-        [HttpPost("CheckGrammar")]
+        [HttpPost("CheckTranslate")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Authorize]
-        public async Task<ActionResult<bool>> CheckGrammar([FromBody] CheckGrammarRequest checkGrammar)
+        public async Task<ActionResult<bool>> CheckTranslate([FromBody] CheckTranslateRequest checkTranslate)
         {
             try
             {
-                var result = await service.CheckGrammar(checkGrammar);
+                var result = await service.CheckTranslate(checkTranslate);
                 return Ok(result);
 
             }
@@ -36,16 +36,16 @@ namespace API.Controllers
             }
         }
 
-        [HttpGet("GetGrammarExerciseById")]
+        [HttpGet("GetTranslateExerciseById")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Authorize]
-        public async Task<ActionResult<GrammarExerciseResponse>> GetGrammarExerciseById(int id)
+        public async Task<ActionResult<TranslateExerciseResponse>> GetTranslateExerciseById(int id)
         {
             try
             {
-                var item = await service.GetGrammarExerciseById(id);
+                var item = await service.GetTranslateExerciseById(id);
                 return Ok(item);
             }
             catch (Exception ex)
@@ -54,14 +54,14 @@ namespace API.Controllers
             }
         }
 
-        [HttpPost("AddGrammarExercise")]
+        [HttpPost("AddTranslateExercise")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> AddGrammarExercise([FromBody] GrammarExerciseRequest request)
+        public async Task<ActionResult> AddTranslateExercise([FromBody] TranslateExerciseRequest request)
         {
             try
             {
-                await service.AddGrammarExercise(request);
+                await service.AddTranslateExercise(request);
                 return Ok();
 
             }
@@ -71,15 +71,15 @@ namespace API.Controllers
             }
         }
 
-        [HttpPut("UpdateGrammarExercise")]
+        [HttpPut("UpdateTranslateExercise")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> UpdateGrammerExercise([FromBody] GrammarExerciseRequest request)
+        public async Task<ActionResult> UpdateGrammerExercise([FromBody] TranslateExerciseRequest request)
         {
             try
             {
-                await service.UpdateGrammarExercise(request);
+                await service.UpdateTranslateExercise(request);
                 return Ok();
 
             }
@@ -89,16 +89,16 @@ namespace API.Controllers
             }
         }
 
-        [HttpDelete("DeleteGrammarExerciseById")]
+        [HttpDelete("DeleteTranslateExerciseById")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Authorize]
-        public async Task<ActionResult> DeleteGrammarExerciseById(int id)
+        public async Task<ActionResult> DeleteTranslateExerciseById(int id)
         {
             try
             {
-                await service.DeleteGrammarExercise(id);
+                await service.DeleteTranslateExercise(id);
                 return Ok();
             }
             catch (Exception ex)

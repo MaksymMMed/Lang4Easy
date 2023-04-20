@@ -14,5 +14,6 @@ namespace DAL.UnitOfWork
         IVoiceExerciseRepository voiceExerciseRepository { get; }
         IGrammarExerciseRepository grammarExerciseRepository { get; }
         ITranslateExerciseRepository translateExerciseRepository { get; }
+        ICompleteStatusRepository completeStatusRepository { get; }
     }
 }

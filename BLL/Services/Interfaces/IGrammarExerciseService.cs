@@ -14,6 +14,6 @@ namespace BLL.Services.Interfaces
         Task UpdateGrammarExercise(GrammarExerciseRequest request);
         Task AddGrammarExercise(GrammarExerciseRequest request);
         Task DeleteGrammarExercise(int id);
-        Task CheckTranslate(GrammarExerciseRequest request,string translatedText,int userId);
+        Task<bool> CheckGrammar(CheckGrammarRequest checkGrammar);
     }
 }

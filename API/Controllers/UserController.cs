@@ -1,7 +1,7 @@
 ﻿using API.Security;
 using BLL.DTO.Request;
+using BLL.DTO.Response;
 using BLL.Services.Interfaces;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,18 +20,20 @@ namespace API.Controllers
         private readonly IUserService service;
         private readonly IConfiguration configuration;
         private readonly ITokenService tokenService;
+        private readonly ILessonService lessonService;
 
-        public UserController(IUserService service, IConfiguration configuration, ITokenService tokenService)
+        public UserController(IUserService service, IConfiguration configuration, ITokenService tokenService, ILessonService lessonService)
         {
             this.service = service;
             this.configuration = configuration;
             this.tokenService = tokenService;
+            this.lessonService = lessonService;
         }
 
         [HttpPost("SignUp")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> SignUp([FromQuery] UserRequest request)
+        public async Task<ActionResult> SignUp([FromBody] UserRequest request)
         {
             try
             {
@@ -84,7 +86,7 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> SignIn([FromBody] UserData data)
+        public async Task<ActionResult<UserResponse>> SignIn([FromBody] UserData data)
         {
             if (data.password != null && data.email != null)
             {
@@ -109,7 +111,8 @@ namespace API.Controllers
                         expires: DateTime.Now.AddMinutes(30), signingCredentials: signIn);
 
                     tokenService.SetToken(new JwtSecurityTokenHandler().WriteToken(token));
-                    return Ok();
+                    //
+                    return Ok(userData);
                 }
                 else
                 {
