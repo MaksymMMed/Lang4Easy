@@ -31,6 +31,7 @@ namespace DAL.Repo.Realizations
             var entity = await table.Where(x=>x.Email == user.Email).FirstAsync();
             if (entity == null)
             {
+                user.Role = "user";
                 await table.AddAsync(user);
                 await context.SaveChangesAsync();
             }

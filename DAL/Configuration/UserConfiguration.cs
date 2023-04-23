@@ -33,6 +33,10 @@ namespace DAL.Configuration
                .IsRequired();
 
             builder
+               .Property(x => x.Role)
+               .IsRequired();
+
+            builder
                .Property(x => x.IsEmailConfirmed)
                .IsRequired();
 

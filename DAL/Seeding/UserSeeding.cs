@@ -18,7 +18,9 @@ namespace DAL.Seeding
                 Login = "BenderRobot",
                 Password = "qwerty01",
                 Email = "Bender03@gmail.com",
-                IsEmailConfirmed = true
+                IsEmailConfirmed = true,
+                Role = "user"
+                
             },
             new User()
             {
@@ -26,7 +28,9 @@ namespace DAL.Seeding
                 Login = "Jack",
                 Password = "qwerty02",
                 Email = "JackD@gmail.com",
-                IsEmailConfirmed = true
+                IsEmailConfirmed = true,
+                Role = "admin"
+
             },
         };
 

@@ -99,6 +99,7 @@ namespace API.Controllers
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                         new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
                         new Claim("Id",userData.Id.ToString()),
+                        new Claim(ClaimsIdentity.DefaultRoleClaimType, userData.Role!),
                         new Claim("Login",userData.Login!.ToString()),
                         new Claim("Password",userData!.Password!.ToString()),
                         new Claim("Email",userData.Email!.ToString())

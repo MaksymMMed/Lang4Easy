@@ -82,7 +82,7 @@ if (app.Environment.IsDevelopment())
 app.UseMiddleware<TokenMiddleware>();
 
 // Use cors to access from webclient
-app.useCors(builder => builder
+app.UseCors(builder => builder
             .AllowAnyOrigin()
             .AllowAnyMethod()
             .AllowAnyHeader());
