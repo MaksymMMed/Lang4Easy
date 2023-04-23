@@ -33,7 +33,7 @@ namespace BLL.Services.Realizations
         {
             var exercise = await unit.translateExerciseRepository.GetById(checkTranslate.exerciseId);
 
-            if (exercise.Answer == checkTranslate.translatedText.Trim())
+            if (exercise.Answer == checkTranslate.translatedText!.Trim())
             {
                 var item = await unit.completeStatusRepository.GetComplete(checkTranslate.userId, exercise.Id);
                 item.Status = true;

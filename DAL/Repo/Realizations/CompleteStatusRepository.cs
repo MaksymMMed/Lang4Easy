@@ -23,7 +23,7 @@ namespace DAL.Repo.Realizations
         public async Task<CompleteStatus> GetComplete(int userId, int exerciseId)
         {
             var item = await table.Where(x=>x.UserId == userId && x.ExerciseId  == exerciseId).FirstOrDefaultAsync();
-            return item;
+            return item!;
         }
     }
 }

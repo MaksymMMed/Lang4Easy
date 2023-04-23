@@ -53,7 +53,6 @@ namespace BLL.Services.Realizations
             var lessons = await unit.LessonRepository.GetAll();
             List<UserLessonResponse> userLessons = new List<UserLessonResponse>();
 
-
             foreach (var lesson in lessons)
             {
                 UserLessonResponse userLesson = new UserLessonResponse();
@@ -62,17 +61,17 @@ namespace BLL.Services.Realizations
                 userLesson.LessonName = lesson.LessonName;
                 userLesson.LessonDescription = lesson.LessonDescription;
 
-              
                 List<UserGrammarExerciseResponse> grammarExercises = new();
                 List<UserVoiceExerciseResponse> voiceExercises = new();
                 List<UserTranslateExerciseResponse> translateExercises = new();
-                
 
-                foreach (var exercise in user.CompletedExercise)
+                foreach (var exercise in user.CompletedExercise!)
                 {
                     if (exercise.Exercise is GrammarExercise && exercise.Exercise.LessonId == lesson.Id)
                     {
-                        GrammarExercise Exercise = await unit.grammarExerciseRepository.GetById(exercise.ExerciseId);
+                        //GrammarExercise Exercise = await unit.grammarExerciseRepository.GetById(exercise.ExerciseId);
+
+                        GrammarExercise Exercise = (GrammarExercise)exercise.Exercise;
                         UserGrammarExerciseResponse userExercise = new();
 
                         userExercise.IdUser = UserId;
@@ -86,7 +85,9 @@ namespace BLL.Services.Realizations
 
                     if (exercise.Exercise is VoiceExercise && exercise.Exercise.LessonId == lesson.Id)
                     {
-                        VoiceExercise Exercise = await unit.voiceExerciseRepository.GetById(exercise.ExerciseId);
+                        //VoiceExercise Exercise = await unit.voiceExerciseRepository.GetById(exercise.ExerciseId);
+
+                        VoiceExercise Exercise = (VoiceExercise)exercise.Exercise;
                         UserVoiceExerciseResponse userExercise = new();
 
                         userExercise.IdUser = UserId;
@@ -100,7 +101,9 @@ namespace BLL.Services.Realizations
 
                     if (exercise.Exercise is TranslateExercise && exercise.Exercise.LessonId == lesson.Id)
                     {
-                        TranslateExercise Exercise = await unit.translateExerciseRepository.GetById(exercise.ExerciseId);
+                        //TranslateExercise Exercise = await unit.translateExerciseRepository.GetById(exercise.ExerciseId);
+
+                        TranslateExercise Exercise = (TranslateExercise)exercise.Exercise;
                         UserTranslateExerciseResponse userExercise = new();
 
                         userExercise.IdUser = UserId;

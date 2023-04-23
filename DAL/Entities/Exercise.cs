@@ -8,7 +8,7 @@ namespace DAL.Entities
 {
     public class Exercise
     {
-        public int Id { get; set; } 
+        public int Id { get; set; }
         public string? Name { get; set; }
         public string? Answer { get; set; }
         public int LessonId { get; set; }

@@ -14,6 +14,5 @@ namespace DAL.Entities
         public string? Email { get; set; }
         public bool IsEmailConfirmed { get; set; }
         public List<CompleteStatus>? CompletedExercise { get; set; }
-
     }
 }

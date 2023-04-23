@@ -18,7 +18,7 @@ namespace DAL.Repo.Realizations
         public override async Task<TranslateExercise> GetById(int id)
         {
             var item = await table.Where(x => x.Id == id).FirstOrDefaultAsync();
-            return item;
+            return item!;
         }
     }
 }

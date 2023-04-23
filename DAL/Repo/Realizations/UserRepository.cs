@@ -18,7 +18,11 @@ namespace DAL.Repo.Realizations
 
         public override async Task<User> GetById(int id)
         {
-                var user = await table.Where(x => x.Id == id).Include(x=>x.CompletedExercise).FirstOrDefaultAsync();
+                var user = await table.Where(x => x.Id == id)
+                .Include(x=>x.CompletedExercise!)
+                .ThenInclude(x=> x.Exercise)
+               // .ThenInclude(x=>x!.Lesson)
+                .FirstOrDefaultAsync();
                 return user ?? throw new ArgumentException("User not found");
         }
 
@@ -38,7 +42,13 @@ namespace DAL.Repo.Realizations
 
         public async Task<User> GetUser(string email, string password)
         {
-            var user = await table.Where(x => x.Email.Trim() == email.Trim() && x.Password.Trim() == password.Trim()).FirstOrDefaultAsync();
+            var user = await table.Where(x => x.Email!.Trim() == email!.Trim() && x.Password!.Trim() == password!.Trim())
+                .Include(x=>x.CompletedExercise!)
+                .ThenInclude(x=>x.Exercise)
+                .FirstOrDefaultAsync();
+
+            
+
             if (user == null)
             {
                 throw new ArgumentException("Wrong email or password");

@@ -46,10 +46,21 @@ namespace BLL.Services.Realizations
 
         public async Task SayText(string textToSay)
         {
-            SpeechSynthesizer synthesizer = new SpeechSynthesizer();
-            synthesizer.SelectVoiceByHints(VoiceGender.Male, VoiceAge.Adult, 0, new System.Globalization.CultureInfo("en-US"));
-            Prompt text = new Prompt(textToSay);
-            synthesizer.SpeakAsync(text);
+            if (textToSay.Any(wordByte => wordByte > 127))
+            {
+                SpeechSynthesizer synthesizer = new SpeechSynthesizer();
+                synthesizer.SelectVoiceByHints(VoiceGender.Male, VoiceAge.Adult, 0, new System.Globalization.CultureInfo("uk-UA"));
+                Prompt text = new Prompt(textToSay);
+                synthesizer.SpeakAsync(text);
+            }
+            else
+            {
+                SpeechSynthesizer synthesizer = new SpeechSynthesizer();
+                synthesizer.SelectVoiceByHints(VoiceGender.Male, VoiceAge.Adult, 0, new System.Globalization.CultureInfo("en-US"));
+                Prompt text = new Prompt(textToSay);
+                synthesizer.SpeakAsync(text);
+            }
+            
         }
 
         public Task CheckText(VoiceExerciseRequest request)
@@ -77,7 +88,7 @@ namespace BLL.Services.Realizations
         {
             var exercise = await unit.voiceExerciseRepository.GetById(checkVoice.exerciseId);
 
-            if (exercise.Answer == checkVoice.recognizedText.Trim())
+            if (exercise.Answer == checkVoice.recognizedText!.Trim())
             {
                 var item = await unit.completeStatusRepository.GetComplete(checkVoice.userId, exercise.Id);
                 item.Status = true;

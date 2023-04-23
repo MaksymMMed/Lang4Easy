@@ -22,7 +22,7 @@ namespace DAL.Repo.Realizations
         public virtual async Task Delete(int id)
         {
             var item = await table.FindAsync(id);
-            table.Remove(item);
+            table.Remove(item!);
             await context.SaveChangesAsync();
         }
 

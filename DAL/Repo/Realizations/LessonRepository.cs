@@ -21,7 +21,7 @@ namespace DAL.Repo.Realizations
                 .Include(x=>x.VoiceExercises)
                 .Include(x=>x.TranslateExercises)
                 .Include(x => x.GrammarExercises).FirstOrDefaultAsync();
-            return item;
+            return item!;
         }
 
         public override async Task<IEnumerable<Lesson>> GetAll()

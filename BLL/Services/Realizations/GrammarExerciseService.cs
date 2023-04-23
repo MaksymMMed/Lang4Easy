@@ -34,7 +34,7 @@ namespace BLL.Services.Realizations
         {
             var exercise = await unit.grammarExerciseRepository.GetById(checkGrammar.exerciseId);
 
-            if (exercise.Answer == checkGrammar.Verb.Trim())
+            if (exercise.Answer == checkGrammar.Verb!.Trim())
             {
                 var item = await unit.completeStatusRepository.GetComplete(checkGrammar.userId, exercise.Id);
                 item.Status = true;

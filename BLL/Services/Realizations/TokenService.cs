@@ -9,7 +9,7 @@ namespace BLL.Services.Realizations
 {
     public class TokenService : ITokenService
     {
-        private string _token;
+        private string? _token;
 
         public void SetToken(string token)
         {
@@ -18,7 +18,7 @@ namespace BLL.Services.Realizations
 
         public string GetToken()
         {
-            return _token;
+            return _token!;
         }
 
         public void DeleteToken()

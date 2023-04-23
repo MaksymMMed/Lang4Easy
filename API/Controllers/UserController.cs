@@ -20,14 +20,12 @@ namespace API.Controllers
         private readonly IUserService service;
         private readonly IConfiguration configuration;
         private readonly ITokenService tokenService;
-        private readonly ILessonService lessonService;
 
-        public UserController(IUserService service, IConfiguration configuration, ITokenService tokenService, ILessonService lessonService)
+        public UserController(IUserService service, IConfiguration configuration, ITokenService tokenService)
         {
             this.service = service;
             this.configuration = configuration;
             this.tokenService = tokenService;
-            this.lessonService = lessonService;
         }
 
         [HttpPost("SignUp")]
@@ -52,7 +50,7 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Authorize]
-        public async Task<ActionResult> GetUserById(int id)
+        public async Task<ActionResult<UserResponse>> GetUserById(int id)
         {
             try
             {
@@ -97,15 +95,15 @@ namespace API.Controllers
                 {
                     var claims = new[]
                     {
-                        new Claim(JwtRegisteredClaimNames.Sub, jwt.Subject),
+                        new Claim(JwtRegisteredClaimNames.Sub, jwt!.Subject!),
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                         new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
                         new Claim("Id",userData.Id.ToString()),
-                        new Claim("Login",userData.Login.ToString()),
-                        new Claim("Password",userData.Password.ToString()),
-                        new Claim("Email",userData.Email.ToString())
+                        new Claim("Login",userData.Login!.ToString()),
+                        new Claim("Password",userData!.Password!.ToString()),
+                        new Claim("Email",userData.Email!.ToString())
                     };
-                    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt.Key));
+                    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt.Key!));
                     var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
                     var token = new JwtSecurityToken(jwt.Issuer, jwt.Audience, claims,
                         expires: DateTime.Now.AddMinutes(30), signingCredentials: signIn);
