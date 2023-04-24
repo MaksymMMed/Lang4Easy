@@ -26,7 +26,7 @@ namespace DAL.Repo.Realizations
             await context.SaveChangesAsync();
         }
 
-        public virtual async Task<IEnumerable<T>> GetAll()
+        public virtual Task<IEnumerable<T>> GetAll()
         {
             throw new NotImplementedException();
         }

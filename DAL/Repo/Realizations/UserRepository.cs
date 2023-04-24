@@ -7,6 +7,9 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Security.Cryptography;
+
 
 namespace DAL.Repo.Realizations
 {
@@ -32,6 +35,13 @@ namespace DAL.Repo.Realizations
             if (entity == null)
             {
                 user.Role = "user";
+
+                using var sha256 = SHA256.Create();
+                var hashBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(user.Password!));
+                string hashString = BitConverter.ToString(hashBytes).Replace("-", "");
+
+                user.Password = hashString;
+
                 await table.AddAsync(user);
                 await context.SaveChangesAsync();
             }
@@ -43,7 +53,11 @@ namespace DAL.Repo.Realizations
 
         public async Task<User> GetUser(string email, string password)
         {
-            var user = await table.Where(x => x.Email!.Trim() == email!.Trim() && x.Password!.Trim() == password!.Trim())
+            using var sha256 = SHA256.Create();
+            var hashBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password!));
+            string hashString = BitConverter.ToString(hashBytes).Replace("-", "");
+
+            var user = await table.Where(x => x.Email!.Trim() == email!.Trim() && x.Password!.Trim() == hashString!.Trim())
                 .Include(x=>x.CompletedExercise!)
                 .ThenInclude(x=>x.Exercise)
                 .FirstOrDefaultAsync();

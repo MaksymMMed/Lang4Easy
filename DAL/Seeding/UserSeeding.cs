@@ -16,7 +16,7 @@ namespace DAL.Seeding
             {
                 Id = 1,
                 Login = "BenderRobot",
-                Password = "qwerty01",
+                Password = "4F9F4BC23FD3DEF1E733A6D2105285474675822E79940B94D5D542E740DD601C",
                 Email = "Bender03@gmail.com",
                 IsEmailConfirmed = true,
                 Role = "user"
@@ -26,7 +26,7 @@ namespace DAL.Seeding
             {
                 Id = 2,
                 Login = "Jack",
-                Password = "qwerty02",
+                Password = "8467A710529EB35155AA4A2CC30DA2D9897C6143D7556B0BCA32B8033350CEA0",
                 Email = "JackD@gmail.com",
                 IsEmailConfirmed = true,
                 Role = "admin"

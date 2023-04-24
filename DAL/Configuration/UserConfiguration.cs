@@ -29,7 +29,7 @@ namespace DAL.Configuration
 
             builder
                .Property(x => x.Password)
-               .HasMaxLength(30)
+               .HasMaxLength(64)
                .IsRequired();
 
             builder
