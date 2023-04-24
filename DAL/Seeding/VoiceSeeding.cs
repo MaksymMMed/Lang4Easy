@@ -20,6 +20,7 @@ namespace DAL.Seeding
                 Name = "Translate sentence",
                 TextToSay = "You ate yesterday",
                 Answer = "Ти їв учора?",
+                Type = VoiceExercise.TypeOfExercise.Listen
             },
             new VoiceExercise()
             {
@@ -27,7 +28,8 @@ namespace DAL.Seeding
                 LessonId = 2,
                 Name = "Translate sentence",
                 Answer = "You ate yesterday",
-                TextToSay = "Ти їв учора?",
+                TextToSay = "You ate yesterday",
+                Type = VoiceExercise.TypeOfExercise.Repeat
             },
         };
 

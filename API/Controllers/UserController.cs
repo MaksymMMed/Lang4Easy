@@ -80,7 +80,7 @@ namespace API.Controllers
             }
         }
 
-        [HttpPost("SignIn", Name = "SignIn")]
+        [HttpPost("SignIn")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

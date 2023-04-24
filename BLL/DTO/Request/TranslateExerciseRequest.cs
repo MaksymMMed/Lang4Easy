@@ -14,7 +14,5 @@ namespace BLL.DTO.Request
         public string? Answer { get; set; }
         public int LessonId { get; set; }
         public string? Question { get; set; }
-        public bool UseBlocks { get; set; }
-        public List<string>? TextBlocks { get; set; }
     }
 }

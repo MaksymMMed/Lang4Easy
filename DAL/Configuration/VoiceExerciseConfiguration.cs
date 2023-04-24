@@ -23,6 +23,12 @@ namespace DAL.Configuration
                 .HasMaxLength(100)
                 .IsRequired();
 
+            builder
+                .Property(x => x.Type)
+                .HasConversion<string>()
+                .HasMaxLength(10)
+                .IsRequired();
+
             new VoiceSeeding().Seeding(builder);
         }
     }

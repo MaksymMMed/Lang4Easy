@@ -9,7 +9,5 @@ namespace DAL.Entities
     public class TranslateExercise:Exercise
     {
         public string? Question { get; set; }
-        public bool UseBlocks { get; set; }
-        public List<string>? TextBlocks { get; set; }
     }
 }

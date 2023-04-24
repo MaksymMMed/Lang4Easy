@@ -16,7 +16,5 @@ namespace BLL.DTO.Response
         public Lesson? Lesson { get; set; }
         public List<CompleteStatus>? CompleteForUser { get; set; }
         public string? Question { get; set; }
-        public bool UseBlocks { get; set; }
-        public List<string>? TextBlocks { get; set; }
     }
 }

@@ -20,9 +20,6 @@ namespace DAL.Seeding
                 Name = "Translate sentence",
                 Question = "Ти їв вчора?",
                 Answer = "You ate yesterday?",
-                UseBlocks = true,
-                TextBlocks = new(){"You","ate","yesterday?"},
-
             },
             new TranslateExercise()
             {
@@ -31,8 +28,6 @@ namespace DAL.Seeding
                 Name = "Translate sentence",
                 Question = "You ate yesterday?",
                 Answer = "Ти їв учора?",
-                UseBlocks = false,
-                TextBlocks = new(){},
             }
         };
 
