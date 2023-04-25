@@ -20,5 +20,12 @@ namespace DAL.Repo.Realizations
             var item = await table.Where(x => x.Id == id).FirstOrDefaultAsync();
             return item!;
         }
+
+        public async Task<TranslateExercise> FindByData(string Name, int LessonId, string Question, string Answer)
+        {
+            var item = await table.Where(x => x.LessonId == LessonId && x.Question == Question
+            && x.Answer == Answer && x.Name == Name).FirstOrDefaultAsync();
+            return item!;
+        }
     }
 }

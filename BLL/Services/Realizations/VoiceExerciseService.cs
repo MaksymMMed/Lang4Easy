@@ -25,6 +25,18 @@ namespace BLL.Services.Realizations
         {
             var item = mapper.Map<VoiceExercise>(request);
             await unit.voiceExerciseRepository.Insert(item);
+
+            var users = await unit.UserRepository.GetAll();
+
+            var exercise = await unit.voiceExerciseRepository.FindByData(request.Name!, request.LessonId, request.TextToSay!, request.Answer!);
+            foreach (var user in users)
+            {
+                CompleteStatus status = new();
+                status.UserId = user.Id;
+                status.ExerciseId = exercise.Id;
+                status.Status = false;
+                await unit.completeStatusRepository.Insert(status);
+            }
         }
 
         public async Task DeleteVoiceExercise(int id)

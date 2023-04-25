@@ -9,5 +9,6 @@ namespace DAL.Repo.Interfaces
 {
     public interface IGrammarExerciseRepository:IRepository<GrammarExercise>
     {
+        Task<GrammarExercise> FindByData(string Name, int LessonId, string Question, string Answer);
     }
 }

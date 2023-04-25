@@ -19,12 +19,17 @@ namespace DAL.Repo.Realizations
         {
         }
 
+        public override async Task<IEnumerable<User>> GetAll()
+        {
+            var users = await table.ToListAsync();
+            return users;
+        }
+
         public override async Task<User> GetById(int id)
         {
                 var user = await table.Where(x => x.Id == id)
                 .Include(x=>x.CompletedExercise!)
                 .ThenInclude(x=> x.Exercise)
-               // .ThenInclude(x=>x!.Lesson)
                 .FirstOrDefaultAsync();
                 return user ?? throw new ArgumentException("User not found");
         }

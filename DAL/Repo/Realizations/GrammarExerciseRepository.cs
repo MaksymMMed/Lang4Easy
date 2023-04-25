@@ -15,6 +15,13 @@ namespace DAL.Repo.Realizations
         {
         }
 
+        public async Task<GrammarExercise> FindByData(string Name, int LessonId, string Question, string Answer)
+        {
+            var item = await table.Where(x => x.LessonId == LessonId && x.Question == Question
+            && x.Answer == Answer && x.Name == Name).FirstOrDefaultAsync();
+            return item!;
+        }
+
         public override async Task<GrammarExercise> GetById(int id)
         {
             var item = await table.Where(x => x.Id == id).FirstOrDefaultAsync();

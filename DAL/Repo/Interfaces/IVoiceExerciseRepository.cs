@@ -9,5 +9,6 @@ namespace DAL.Repo.Interfaces
 {
     public interface IVoiceExerciseRepository:IRepository<VoiceExercise>
     {
+        Task<VoiceExercise> FindByData(string Name, int LessonId, string Question, string Answer);
     }
 }

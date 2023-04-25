@@ -25,8 +25,22 @@ namespace BLL.Services.Realizations
 
         public async Task AddTranslateExercise(TranslateExerciseRequest request)
         {
+
             var item = mapper.Map<TranslateExercise>(request);
             await unit.translateExerciseRepository.Insert(item);
+
+            var users = await unit.UserRepository.GetAll();
+
+            var exercise = await unit.translateExerciseRepository.FindByData(request.Name!,request.LessonId,request.Question!,request.Answer!);
+            foreach (var user in users)
+            {
+                CompleteStatus status = new();
+                status.UserId = user.Id;
+                status.ExerciseId = exercise.Id;
+                status.Status = false;
+                await unit.completeStatusRepository.Insert(status);
+            }
+
         }
 
         public async Task<bool> CheckTranslate(CheckTranslateRequest checkTranslate)

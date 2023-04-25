@@ -1,4 +1,5 @@
-﻿using BLL.DTO.Response;
+﻿using BLL.DTO.Request;
+using BLL.DTO.Response;
 using BLL.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -17,11 +18,29 @@ namespace API.Controllers
             this.service = service;
         }
 
+        [HttpPost("AddLesson")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles ="admin")]
+        public async Task<ActionResult> AddLesson([FromBody] LessonRequest request)
+        {
+            try
+            {
+                await service.AddLesson(request);
+                return Ok();
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { ex.Message });
+            }
+        }
+
         [HttpGet("GetLessons")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [Authorize]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult<IEnumerable<LessonResponse>>> GetLessons()
         {
             try

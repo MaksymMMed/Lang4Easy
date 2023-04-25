@@ -32,12 +32,18 @@ namespace BLL.MapperConfig
             CreateMap<VoiceExercise,VoiceExerciseResponse>();
             CreateMap<VoiceExerciseRequest,VoiceExercise>();
         }
+        void TranslateProfile()
+        {
+            CreateMap<TranslateExercise, TranslateExerciseResponse>();
+            CreateMap<TranslateExerciseRequest, TranslateExercise>();
+        }
         public MapperProfile()
         {
             LessonProfile();
             UserProfile();
             GrammarProfile();
             VoiceProfile();
+            TranslateProfile();
         }
     }
 }

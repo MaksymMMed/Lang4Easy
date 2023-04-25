@@ -58,7 +58,7 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Authorize(Roles = "admin")]
-        public async Task<ActionResult> AddGrammarExercise([FromQuery] GrammarExerciseRequest request)
+        public async Task<ActionResult> AddGrammarExercise([FromBody] GrammarExerciseRequest request)
         {
             try
             {
