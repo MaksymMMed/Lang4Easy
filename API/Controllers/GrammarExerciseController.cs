@@ -41,11 +41,12 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Authorize]
-        public async Task<ActionResult<GrammarExerciseResponse>> GetGrammarExerciseById(int id)
+        public async Task<ActionResult<GrammarExerciseResponse>> GetGrammarExerciseById(string id)
         {
             try
             {
-                var item = await service.GetGrammarExerciseById(id);
+                int _id = Int32.Parse(id);
+                var item = await service.GetGrammarExerciseById(_id);
                 return Ok(item);
             }
             catch (Exception ex)
@@ -76,6 +77,7 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult> UpdateGrammerExercise([FromBody] GrammarExerciseRequest request)
         {
             try
@@ -94,12 +96,13 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [Authorize]
-        public async Task<ActionResult> DeleteGrammarExerciseById(int id)
+        [Authorize(Roles = "admin")]
+        public async Task<ActionResult> DeleteGrammarExerciseById(string id)
         {
             try
             {
-                await service.DeleteGrammarExercise(id);
+                int _id = Int32.Parse(id);
+                await service.DeleteGrammarExercise(_id);
                 return Ok();
             }
             catch (Exception ex)

@@ -50,11 +50,12 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Authorize]
-        public async Task<ActionResult<UserResponse>> GetUserById(int id)
+        public async Task<ActionResult<UserResponse>> GetUserById(string id)
         {
             try
             {
-                var item = await service.GetUserById(id);
+                int _id = Int32.Parse(id);
+                var item = await service.GetUserById(_id);
                 return Ok(item);
             }
             catch (Exception ex)
@@ -129,6 +130,7 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize]
         public async Task<ActionResult> UpdateUser([FromBody] UserRequest request)
         {
             try
@@ -147,6 +149,7 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize]
         public async Task<ActionResult> DeleteUser(int id)
         {
             try

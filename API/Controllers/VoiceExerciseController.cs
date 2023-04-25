@@ -34,24 +34,6 @@ namespace API.Controllers
             }
         }
 
-        [HttpPost("AddVoiceExercise")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [Authorize(Roles = "admin")]
-        public async Task<ActionResult> AddVoiceExercise([FromBody] VoiceExerciseRequest request)
-        {
-            try
-            {
-                await service.AddVoiceExercise(request);
-                return Ok();
-
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { ex.Message });
-            }
-        }
-
         [HttpPost("CheckRecognizedText")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -83,6 +65,61 @@ namespace API.Controllers
                 service.CheckVoice();
                 return Ok();
 
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { ex.Message });
+            }
+        }
+
+        [HttpPost("AddVoiceExercise")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "admin")]
+        public async Task<ActionResult> AddVoiceExercise([FromBody] VoiceExerciseRequest request)
+        {
+            try
+            {
+                await service.AddVoiceExercise(request);
+                return Ok();
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { ex.Message });
+            }
+        }
+
+        [HttpPut("UpdateVoiceExercise")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "admin")]
+        public async Task<ActionResult> UpdateVoiceExercise([FromBody] VoiceExerciseRequest request)
+        {
+            try
+            {
+                await service.UpdateVoiceExercise(request);
+                return Ok();
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { ex.Message });
+            }
+        }
+
+        [HttpDelete("DeleteTranslateExerciseById")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "admin")]
+        public async Task<ActionResult> DeleteTranslateExerciseById(int id)
+        {
+            try
+            {
+                await service.DeleteTranslateExercise(id);
+                return Ok();
             }
             catch (Exception ex)
             {

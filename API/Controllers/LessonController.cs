@@ -36,6 +36,45 @@ namespace API.Controllers
             }
         }
 
+        [HttpPut("UpdateLesson")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "admin")]
+        public async Task<ActionResult> UpdateLesson([FromBody] LessonRequest request)
+        {
+            try
+            {
+                await service.UpdateLesson(request);
+                return Ok();
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { ex.Message });
+            }
+        }
+
+        [HttpDelete("DeleteLesson")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "admin")]
+        public async Task<ActionResult> DeleteLesson(string id)
+        {
+            try
+            {
+                int _id = Int32.Parse(id);
+                await service.DeleteLesson(_id);
+                return Ok();
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { ex.Message });
+            }
+        }
+
         [HttpGet("GetLessons")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

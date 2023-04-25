@@ -57,6 +57,7 @@ namespace API.Controllers
         [HttpPost("AddTranslateExercise")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult> AddTranslateExercise([FromBody] TranslateExerciseRequest request)
         {
             try
@@ -75,7 +76,8 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> UpdateGrammerExercise([FromBody] TranslateExerciseRequest request)
+        [Authorize(Roles = "admin")]
+        public async Task<ActionResult> UpdateTranslateExercise([FromBody] TranslateExerciseRequest request)
         {
             try
             {
@@ -93,12 +95,13 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [Authorize]
-        public async Task<ActionResult> DeleteTranslateExerciseById(int id)
+        [Authorize(Roles = "admin")]
+        public async Task<ActionResult> DeleteTranslateExerciseById(string id)
         {
             try
             {
-                await service.DeleteTranslateExercise(id);
+                int _id = Int32.Parse(id);
+                await service.DeleteTranslateExercise(_id);
                 return Ok();
             }
             catch (Exception ex)
