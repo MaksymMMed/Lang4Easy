@@ -4,14 +4,11 @@ using BLL.DTO.Response;
 using BLL.Services.Interfaces;
 using DAL.Entities;
 using DAL.UnitOfWork;
-using System.Speech.Recognition;
-using System.Speech.Synthesis;
 
 namespace BLL.Services.Realizations
 {
     public class VoiceExerciseService : IVoiceExerciseService
     {
-        private SpeechRecognitionEngine _speechRecognitionEngine;
         private readonly IUnitOfWork unit;
         private readonly IMapper mapper;
 
@@ -56,71 +53,21 @@ namespace BLL.Services.Realizations
             await unit.voiceExerciseRepository.Update(item);
         }
 
-        public async Task SayText(string textToSay)
+        public async Task<bool> CheckRecognizedText(CheckVoiceRequest checkVoice)
         {
+            var exercise = await unit.voiceExerciseRepository.GetById(checkVoice.exerciseId);
 
-            SpeechSynthesizer synthesizer = new SpeechSynthesizer();
-            synthesizer.SelectVoiceByHints(VoiceGender.Male, VoiceAge.Adult, 0, new System.Globalization.CultureInfo("en-US"));
-            Prompt text = new Prompt(textToSay);
-            synthesizer.SpeakAsync(text);
-        }
-
-        public void CheckVoice()
-        {
-            using (
-            SpeechRecognitionEngine recognizer = new SpeechRecognitionEngine
-            (new System.Globalization.CultureInfo("en-US")))
+            if (exercise.Answer == checkVoice.recognizedText!.Trim())
             {
-
-                // Create and load a dictation grammar.  
-                recognizer.LoadGrammar(new DictationGrammar());
-
-                // Add a handler for the speech recognized event.  
-                recognizer.SpeechRecognized +=
-                  new EventHandler<SpeechRecognizedEventArgs>(SpeechRecognitionEngine_SpeechRecognized!);
-
-                recognizer.SpeechRecognitionRejected +=
-                    new EventHandler<SpeechRecognitionRejectedEventArgs>(SpeechRecognitionEngine_SpeechRecognitionRejected!);
-
-                // Configure input to the speech recognizer.  
-                recognizer.SetInputToDefaultAudioDevice();
-
-                // Start asynchronous, continuous speech recognition.  
-                recognizer.RecognizeAsync(RecognizeMode.Multiple);
-
+                var item = await unit.completeStatusRepository.GetComplete(checkVoice.userId, exercise.Id);
+                item.Status = true;
+                await unit.completeStatusRepository.Update(item);
+                return true;
             }
-            void SpeechRecognitionEngine_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
+            else
             {
-                Console.WriteLine($"Recognized: {e.Result.Text}");
-            }
-
-            void SpeechRecognitionEngine_SpeechRecognitionRejected(object sender, SpeechRecognitionRejectedEventArgs e)
-            {
-                Console.WriteLine($"Rejected: {e.Result.Text}");
-                SpeechSynthesizer synthesizer = new SpeechSynthesizer();
-                synthesizer.SelectVoiceByHints(VoiceGender.Male, VoiceAge.Adult, 0, new System.Globalization.CultureInfo("en-US"));
-                Prompt text = new Prompt("I dont understand");
-                synthesizer.SpeakAsync(text);
+                return false;
             }
         }
-
-            
-
-            public async Task<bool> CheckRecognizedText(CheckVoiceRequest checkVoice)
-            {
-                var exercise = await unit.voiceExerciseRepository.GetById(checkVoice.exerciseId);
-
-                if (exercise.Answer == checkVoice.recognizedText!.Trim())
-                {
-                    var item = await unit.completeStatusRepository.GetComplete(checkVoice.userId, exercise.Id);
-                    item.Status = true;
-                    await unit.completeStatusRepository.Update(item);
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
+    }
     }

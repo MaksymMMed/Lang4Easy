@@ -41,11 +41,12 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Authorize]
-        public async Task<ActionResult<TranslateExerciseResponse>> GetTranslateExerciseById(int id)
+        public async Task<ActionResult<TranslateExerciseResponse>> GetTranslateExerciseById(string id)
         {
             try
             {
-                var item = await service.GetTranslateExerciseById(id);
+                int _id = Int32.Parse(id);
+                var item = await service.GetTranslateExerciseById(_id);
                 return Ok(item);
             }
             catch (Exception ex)

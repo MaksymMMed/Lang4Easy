@@ -16,24 +16,6 @@ namespace API.Controllers
             this.service = service;
         }
 
-        [HttpPost("SayText")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [Authorize]
-        public async Task<ActionResult> SayText([FromBody] string textToSay)
-        {
-            try
-            {
-                await service.SayText(textToSay);
-                return Ok();
-
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { ex.Message });
-            }
-        }
-
         [HttpPost("CheckRecognizedText")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -45,25 +27,6 @@ namespace API.Controllers
             {
                 var result = await service.CheckRecognizedText(checkVoice);
                 return Ok(result);
-
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { ex.Message });
-            }
-        }
-
-        [HttpPost("CheckVoice")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [Authorize]
-        public async Task<ActionResult<bool>> CheckVoice()
-        {
-            try
-            {
-                service.CheckVoice();
-                return Ok();
 
             }
             catch (Exception ex)
@@ -109,16 +72,17 @@ namespace API.Controllers
             }
         }
 
-        [HttpDelete("DeleteTranslateExerciseById")]
+        [HttpDelete("DeleteVoiceExerciseById")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Authorize(Roles = "admin")]
-        public async Task<ActionResult> DeleteTranslateExerciseById(int id)
+        public async Task<ActionResult> DeleteVoiceExerciseById(string id)
         {
             try
             {
-                await service.DeleteTranslateExercise(id);
+                int _id = Int32.Parse(id);
+                await service.DeleteVoiceExercise(_id);
                 return Ok();
             }
             catch (Exception ex)
