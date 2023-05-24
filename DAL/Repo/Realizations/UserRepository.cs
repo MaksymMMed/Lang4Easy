@@ -36,7 +36,7 @@ namespace DAL.Repo.Realizations
 
         public override async Task Insert(User user)
         {
-            var entity = await table.Where(x=>x.Email == user.Email).FirstAsync();
+            var entity = await table.FirstOrDefaultAsync(x => x.Email == user.Email);
             if (entity == null)
             {
                 user.Role = "user";
@@ -68,7 +68,6 @@ namespace DAL.Repo.Realizations
                 .FirstOrDefaultAsync();
 
             
-
             if (user == null)
             {
                 throw new ArgumentException("Wrong email or password");

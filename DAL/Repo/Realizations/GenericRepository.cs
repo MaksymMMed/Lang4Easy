@@ -26,9 +26,10 @@ namespace DAL.Repo.Realizations
             await context.SaveChangesAsync();
         }
 
-        public virtual Task<IEnumerable<T>> GetAll()
+        public virtual async Task<IEnumerable<T>> GetAll()
         {
-            throw new NotImplementedException();
+            var items = await table.ToListAsync();
+            return items;
         }
 
         public abstract Task<T> GetById(int id);

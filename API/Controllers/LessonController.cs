@@ -60,14 +60,12 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Authorize(Roles = "admin")]
-        public async Task<ActionResult> DeleteLesson(string id)
+        public async Task<ActionResult> DeleteLesson(int id)
         {
             try
             {
-                int _id = Int32.Parse(id);
-                await service.DeleteLesson(_id);
+                await service.DeleteLesson(id);
                 return Ok();
-
             }
             catch (Exception ex)
             {

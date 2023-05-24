@@ -23,6 +23,7 @@ namespace DAL.Configuration
                 .HasValue<TranslateExercise>("Translate")
                 .HasValue<VoiceExercise>("Voice");
 
+
             builder
                 .Property(x => x.Name)
                 .HasMaxLength(100)

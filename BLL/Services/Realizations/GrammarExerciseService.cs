@@ -63,6 +63,7 @@ namespace BLL.Services.Realizations
         public async Task DeleteGrammarExercise(int id)
         {
             await unit.grammarExerciseRepository.Delete(id);
+
         }
 
         public async Task<GrammarExerciseResponse> GetGrammarExerciseById(int id)
