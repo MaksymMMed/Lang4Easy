@@ -32,7 +32,8 @@ namespace BLL.Services.Realizations
 
             var users = await unit.UserRepository.GetAll();
 
-            var exercise = await unit.grammarExerciseRepository.FindByData(request.Name!, request.LessonId!, request.Question!, request.Answer!);
+            var exercise = await unit.grammarExerciseRepository.FindByData(request.Name!,
+                request.LessonId!, request.Question!, request.Answer!);
             foreach (var user in users)
             {
                 CompleteStatus status = new();

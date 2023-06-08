@@ -16,5 +16,7 @@ namespace BLL.DTO.Response
         public bool IsEmailConfirmed { get; set; }
         public List<CompleteStatus>? CompletedExercise { get; set; }
         public string? Role { get; set; }
+
+        public string Token { get; set; }
     }
 }

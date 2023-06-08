@@ -1,4 +1,3 @@
-using API.Middleware;
 using BLL.DTO.Response;
 using BLL.Services.Interfaces;
 using BLL.Services.Realizations;
@@ -32,7 +31,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 //Services
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+ 
 //Cors
 builder.Services.AddCors();
 
@@ -50,10 +49,7 @@ builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IGrammarExerciseService, GrammarExerciseService>();
 builder.Services.AddTransient<IVoiceExerciseService, VoiceExerciseService>();
 
-builder.Services.AddTransient<IUnitOfWork,UnitOfWork>();
-
-//Singletone for token service
-builder.Services.AddSingleton<ITokenService,TokenService>();
+builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
 
 //Security
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
@@ -78,8 +74,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-app.UseMiddleware<TokenMiddleware>();
 
 // Use cors to access from webclient
 app.UseCors(builder => builder

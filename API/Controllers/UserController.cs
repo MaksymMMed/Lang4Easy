@@ -19,13 +19,11 @@ namespace API.Controllers
     {
         private readonly IUserService service;
         private readonly IConfiguration configuration;
-        private readonly ITokenService tokenService;
 
-        public UserController(IUserService service, IConfiguration configuration, ITokenService tokenService)
+        public UserController(IUserService service, IConfiguration configuration)
         {
             this.service = service;
             this.configuration = configuration;
-            this.tokenService = tokenService;
         }
 
         [HttpPost("SignUp")]
@@ -64,23 +62,6 @@ namespace API.Controllers
             }
         }
 
-        [HttpPost("Logout")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [Authorize]
-        public ActionResult Logout()
-        {
-            try
-            {
-                tokenService.DeleteToken();
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { ex.Message });
-            }
-        }
-
         [HttpPost("SignIn")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -110,7 +91,9 @@ namespace API.Controllers
                     var token = new JwtSecurityToken(jwt.Issuer, jwt.Audience, claims,
                         expires: DateTime.Now.AddMinutes(90), signingCredentials: signIn);
 
-                    tokenService.SetToken(new JwtSecurityTokenHandler().WriteToken(token));
+
+                    userData.Token = new JwtSecurityTokenHandler().WriteToken(token);
+
                     //
                     return Ok(userData);
                 }
